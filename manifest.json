@@ -1,0 +1,16 @@
+{
+  "name": "Cuaderno Digital de Física III - Movimiento Oscilatorio y M.A.S.",
+  "short_name": "Física 3 - M.A.S.",
+  "description": "Cuaderno interactivo digital de Física III con simulaciones en tiempo real, planos estilo GeoGebra y rigor pedagógico.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#1a1a26",
+  "theme_color": "#2563eb",
+  "icons": [
+    {
+      "src": "imagenes/portada.webp",
+      "sizes": "1103x1426",
+      "type": "image/webp"
+    }
+  ]
+}
