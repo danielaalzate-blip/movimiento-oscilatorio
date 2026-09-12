@@ -1,0 +1,517 @@
+/* ==========================================================================
+   CUADERNO DIGITAL DE FÍSICA III - MAQUETACIÓN EDITORIAL DEL CUADERNO
+   ========================================================================== */
+
+/* Contenedor del Libro / Escenario */
+.notebook-viewport {
+  width: 100%;
+  max-width: 1060px;
+  min-height: 860px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  perspective: 2000px;
+  margin: 0 auto 30px auto;
+  position: relative;
+}
+
+.notebook-shell {
+  width: 100%;
+  max-width: 1020px;
+  background: #252433;
+  padding: 12px;
+  border-radius: 20px;
+  box-shadow: var(--shadow-book);
+  position: relative;
+  transition: transform 0.4s ease;
+}
+
+/* Simulación de espiral / anillas o lomo de encuadernación */
+.notebook-spine {
+  position: absolute;
+  top: 30px;
+  bottom: 30px;
+  left: 2px;
+  width: 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  z-index: 50;
+  pointer-events: none;
+}
+
+.spiral-ring {
+  width: 24px;
+  height: 9px;
+  background: linear-gradient(180deg, #9ca3af 0%, #4b5563 45%, #1f2937 100%);
+  border-radius: 6px;
+  box-shadow: 2px 3px 6px rgba(0, 0, 0, 0.4);
+  transform: translateX(-4px);
+}
+
+/* Las páginas individuales */
+.notebook-page {
+  display: none;
+  width: 100%;
+  min-height: 1280px;
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-page);
+  opacity: 0;
+  transform: translateY(10px) scale(0.99);
+  transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.2, 0.9, 0.3, 1);
+}
+
+.notebook-page.active {
+  display: block;
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* ==========================================================================
+   PÁGINA 0: PORTADA DEL CUADERNO
+   ========================================================================== */
+.notebook-page.page-cover {
+  background: url('../imagenes/portada.webp') center top / cover no-repeat;
+  min-height: 1320px;
+  display: none;
+  position: relative;
+}
+
+.notebook-page.page-cover.active {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 60px 40px 50px 40px;
+}
+
+.cover-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(8, 25, 45, 0.45) 0%, rgba(10, 15, 25, 0.25) 50%, rgba(8, 20, 35, 0.75) 100%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.cover-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 820px;
+  text-align: center;
+  color: #ffffff;
+}
+
+.cover-badge-top {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  padding: 8px 20px;
+  border-radius: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+
+.cover-title-main {
+  font-family: var(--font-title);
+  font-size: clamp(2.4rem, 5vw, 3.8rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+  margin-bottom: 12px;
+}
+
+.cover-title-main span {
+  background: linear-gradient(135deg, #60a5fa, #a78bfa, #f472b6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.cover-subtitle {
+  font-size: clamp(1.1rem, 2.5vw, 1.45rem);
+  font-weight: 400;
+  color: #e0e7ff;
+  max-width: 680px;
+  margin: 0 auto 30px auto;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.cover-action-box {
+  margin: 40px auto 20px auto;
+}
+
+.btn-open-notebook {
+  background: linear-gradient(135deg, #2563eb, #7c3aed);
+  color: white;
+  border: none;
+  font-family: var(--font-title);
+  font-size: 1.15rem;
+  font-weight: 700;
+  padding: 16px 36px;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 10px 30px rgba(79, 70, 229, 0.5), 0 0 0 2px rgba(255, 255, 255, 0.3);
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  transition: all 0.3s ease;
+}
+
+.btn-open-notebook:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 14px 38px rgba(79, 70, 229, 0.65), 0 0 0 3px rgba(255, 255, 255, 0.5);
+}
+
+.cover-authors-card {
+  position: relative;
+  z-index: 2;
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 16px;
+  padding: 24px 32px;
+  max-width: 640px;
+  width: 100%;
+  color: #f8fafc;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+  text-align: center;
+}
+
+.cover-authors-title {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #94a3b8;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+.cover-authors-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.cover-author-name {
+  font-family: var(--font-title);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.01em;
+}
+
+/* ==========================================================================
+   PÁGINAS INTERIORES DE CONTENIDO (SOBRE hoja_contenido.webp)
+   ========================================================================== */
+.notebook-page.page-content {
+  background: url('../imagenes/hoja_contenido.webp') center top / 100% 100% no-repeat;
+  background-color: #faf7f2;
+  padding: 48px 58px 60px 68px;
+  color: var(--color-text-dark);
+  font-size: 1.02rem;
+  line-height: 1.68;
+}
+
+/* Encabezado superior de la hoja */
+.sheet-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid rgba(180, 160, 140, 0.35);
+  padding-bottom: 12px;
+  margin-bottom: 28px;
+}
+
+.sheet-header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sheet-discipline-tag {
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: 0.82rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #1e3a8a;
+  background: #dbeafe;
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+
+.sheet-topic-title {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #4b5563;
+}
+
+.sheet-page-number {
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #1f2937;
+  background: rgba(243, 238, 230, 0.8);
+  border: 1px solid #d4c5b3;
+  padding: 4px 14px;
+  border-radius: 20px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+/* Jerarquía de títulos dentro del cuaderno */
+.page-headline {
+  font-family: var(--font-title);
+  font-weight: 800;
+  font-size: 2.1rem;
+  color: #0f172a;
+  letter-spacing: -0.025em;
+  line-height: 1.22;
+  margin-bottom: 10px;
+}
+
+.page-subheadline {
+  font-size: 1.08rem;
+  color: #475569;
+  font-weight: 400;
+  margin-bottom: 24px;
+}
+
+.section-title {
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: 1.35rem;
+  color: #1e293b;
+  letter-spacing: -0.015em;
+  margin: 28px 0 12px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.section-title::before {
+  content: '';
+  display: inline-block;
+  width: 5px;
+  height: 20px;
+  background: #2563eb;
+  border-radius: 4px;
+}
+
+/* Párrafos y texto enriquecido */
+p.content-text {
+  margin-bottom: 16px;
+  color: #334155;
+  text-align: justify;
+  line-height: 1.7;
+}
+
+/* Cajas de notas, teoremas y leyes */
+.callout-box {
+  background: #ffffff;
+  border-left: 4px solid #3b82f6;
+  border-radius: 0 10px 10px 0;
+  padding: 16px 20px;
+  margin: 20px 0;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
+}
+
+.callout-box.law {
+  border-left-color: #7c3aed;
+  background: #fcfaff;
+}
+
+.callout-box.highlight {
+  border-left-color: #ea580c;
+  background: #fffbf7;
+}
+
+.callout-title {
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #0f172a;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ==========================================================================
+   NUMERACIÓN SECUENCIAL DE ELEMENTOS FORMALES
+   ========================================================================== */
+
+/* Bloques de Ecuaciones Numeradas */
+.math-equation-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 14px 22px;
+  margin: 18px 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.math-equation-body {
+  flex: 1;
+  text-align: center;
+  overflow-x: auto;
+  padding: 4px 10px;
+}
+
+.math-equation-tag {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #64748b;
+  background: #f1f5f9;
+  padding: 4px 10px;
+  border-radius: 6px;
+  margin-left: 16px;
+  white-space: nowrap;
+}
+
+/* Ilustraciones Numeradas */
+.illustration-frame {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 16px;
+  margin: 22px 0;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+  text-align: center;
+}
+
+.illustration-caption {
+  font-size: 0.88rem;
+  color: #475569;
+  font-weight: 500;
+  margin-top: 10px;
+  border-top: 1px dashed #cbd5e1;
+  padding-top: 8px;
+}
+
+.illustration-caption strong {
+  color: #1e293b;
+}
+
+/* Tablas Numeradas */
+.table-wrapper {
+  margin: 22px 0;
+  overflow-x: auto;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e2e8f0;
+}
+
+.notebook-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.92rem;
+}
+
+.notebook-table thead {
+  background: #1e293b;
+  color: white;
+}
+
+.notebook-table th, .notebook-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.notebook-table tbody tr:hover {
+  background-color: #f8fafc;
+}
+
+.table-caption {
+  font-size: 0.88rem;
+  color: #475569;
+  font-weight: 500;
+  padding: 10px 16px;
+  background: #f8fafc;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+/* Pie de página dentro de la hoja de contenido */
+.sheet-footer {
+  margin-top: 36px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(180, 160, 140, 0.35);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.82rem;
+  color: #64748b;
+}
+
+/* ==========================================================================
+   FOOTER OFICIAL OBLIGATORIO DEL CUADERNO
+   ========================================================================== */
+.app-official-footer {
+  width: 100%;
+  max-width: 1020px;
+  margin: 30px auto 0 auto;
+  text-align: center;
+  padding: 24px 20px;
+  background: rgba(22, 22, 32, 0.85);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  color: #cbd5e1;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+}
+
+.official-footer-title {
+  font-family: var(--font-title);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: #94a3b8;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.official-authors-names {
+  font-family: var(--font-title);
+  font-size: 1.12rem;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.5;
+}
+
+.official-authors-names span {
+  display: inline-block;
+  margin: 0 8px;
+  color: #60a5fa;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .notebook-page.page-content {
+    padding: 30px 22px 40px 24px;
+  }
+  .sheet-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .page-headline {
+    font-size: 1.6rem;
+  }
+  .notebook-spine {
+    display: none;
+  }
+}

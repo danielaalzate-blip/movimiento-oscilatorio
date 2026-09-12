@@ -1,0 +1,184 @@
+/* ==========================================================================
+   CUADERNO DIGITAL DE FÍSICA III - ESTILOS PRINCIPALES Y VARIABLES GLOBALES
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500;600&display=swap');
+
+:root {
+  /* Paleta cromática principal */
+  --color-bg-desk: #1a1a26;
+  --color-bg-desk-radial: radial-gradient(circle at 50% 15%, #28283c 0%, #12121b 100%);
+  --color-paper-light: #faf7f2;
+  --color-paper-border: #d4c5b3;
+  --color-text-dark: #1f2029;
+  --color-text-muted: #525266;
+  --color-text-lead: #111119;
+  
+  /* Colores pedagógicos obligatorios */
+  --color-data-blue: #1d4ed8;       /* DATOS: Azul (#1d4ed8) */
+  --color-data-blue-bg: #eff6ff;
+  --color-data-blue-border: #93c5fd;
+  
+  --color-unknown-red: #dc2626;     /* INCÓGNITAS: Rojo (#dc2626) */
+  --color-unknown-red-bg: #fef2f2;
+  --color-unknown-red-border: #fca5a5;
+  
+  --color-solved-orange: #ea580c;   /* DESPEJADAS / NO INCÓGNITAS: Naranja (#ea580c) */
+  --color-solved-orange-bg: #fff7ed;
+  --color-solved-orange-border: #fdba74;
+
+  --color-formula-purple: #6d28d9;  /* Fórmulas */
+  --color-formula-bg: #f5f3ff;
+  --color-formula-border: #c4b5fd;
+
+  --color-success-green: #047857;   /* Conclusiones y Validación */
+  --color-success-bg: #ecfdf5;
+  --color-success-border: #6ee7b7;
+
+  /* Colores de las gráficas GeoGebra */
+  --geo-axis-color: #111827;
+  --geo-major-grid: rgba(75, 85, 99, 0.25);
+  --geo-minor-grid: rgba(107, 114, 128, 0.12);
+  --geo-pos-color: #2563eb;         /* Elongación x(t) */
+  --geo-vel-color: #059669;         /* Velocidad v(t) */
+  --geo-acc-color: #dc2626;         /* Aceleración a(t) */
+
+  /* Tipografías */
+  --font-title: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'Fira Code', monospace;
+
+  /* Sombras del libro/cuaderno */
+  --shadow-book: 0 25px 60px -15px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(255, 255, 255, 0.08);
+  --shadow-page: 0 12px 36px rgba(0, 0, 0, 0.22);
+  --shadow-float: 0 12px 28px rgba(0, 0, 0, 0.2);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+
+  /* Transiciones */
+  --transition-smooth: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  min-height: 100%;
+  overflow-x: hidden;
+  font-family: var(--font-body);
+  color: var(--color-text-dark);
+  background: var(--color-bg-desk-radial);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 16px 110px 16px;
+  position: relative;
+}
+
+/* Barra superior de herramientas y metadatos */
+.app-header {
+  width: 100%;
+  max-width: 1140px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background: rgba(22, 22, 32, 0.82);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+  color: #f3f4f6;
+  margin-bottom: 22px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  z-index: 100;
+}
+
+.app-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.app-brand-icon {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #2563eb, #7c3aed);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  box-shadow: 0 4px 14px rgba(59, 130, 246, 0.4);
+}
+
+.app-brand-title {
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: 1.15rem;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+
+.app-brand-subtitle {
+  font-size: 0.78rem;
+  color: #a1a1aa;
+}
+
+.app-header-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.header-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: #e4e4e7;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: var(--transition-smooth);
+}
+
+.header-btn:hover {
+  background: rgba(255, 255, 255, 0.18);
+  color: white;
+  transform: translateY(-1px);
+}
+
+.header-btn.primary {
+  background: linear-gradient(135deg, #2563eb, #3b82f6);
+  border-color: #3b82f6;
+  color: white;
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
+}
+
+.header-btn.primary:hover {
+  background: linear-gradient(135deg, #1d4ed8, #2563eb);
+}
+
+.page-indicator-badge {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  color: #e4e4e7;
+  font-family: var(--font-mono);
+}
